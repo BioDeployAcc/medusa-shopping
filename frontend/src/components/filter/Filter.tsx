@@ -16,11 +16,11 @@ export const filterSchema = z.object({
   order: z.string().optional(),
   direction: z.string().optional(),
   limit: z.number().optional(),
-});
+}); //Check if zod validation is overkill here
 
-export type QueryType = z.infer<typeof filterSchema>;
+export type ProductQueryType = z.infer<typeof filterSchema>;
 
-export const defaultQuery: QueryType = {
+export const defaultQuery: ProductQueryType = {
   q: "",
   collection_id: "",
   category_id: "",
@@ -29,11 +29,11 @@ export const defaultQuery: QueryType = {
 };
 
 export interface FilterProps {
-  defaultValues?: QueryType;
+  defaultValues?: ProductQueryType;
 }
 
 export const Filter = ({ defaultValues = defaultQuery }) => {
-  const form = useForm<QueryType>({
+  const form = useForm<ProductQueryType>({
     resolver: zodResolver(filterSchema),
     defaultValues,
   });
