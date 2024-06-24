@@ -6,7 +6,7 @@ export async function getProducts(query: ProductQueryType) {
   try {
     const parsedQuery = queryString.stringify(query);
     const response = await fetch(
-      `${storeBaseUrl}/products/store${parsedQuery}`
+      `${storeBaseUrl}/products/store?${parsedQuery}`
     ); //Check if parsed query is needed here
     const data = await response.json();
     return data;
@@ -14,5 +14,3 @@ export async function getProducts(query: ProductQueryType) {
     console.log(e);
   }
 }
-
-
