@@ -1,14 +1,14 @@
 const baseDesktop = 1440;
 const baseMobile = 375;
 
-export const calculateVw = (base: number, size: number): number => {
-  return (size / base) * 100;
+export const calculatePercentage = (base: number, size: number): number => {
+  return size / base;
 };
 
-export const calculateDesktopVw = (size: number): number => {
-  return calculateVw(baseDesktop, size);
+export const calculateDesktopPercentage = (size: number): number => {
+  return calculatePercentage(baseDesktop, size);
 };
 
-export const calculateMobileVw = (size: number): number => {
-  return calculateVw(baseMobile, size);
+export const calculateMobilePercentage = (size: number): number => {
+  return calculatePercentage(baseMobile, size);
 };

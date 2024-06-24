@@ -2,8 +2,8 @@ import Image from "next/image";
 import classes from "./ProductCard.module.css";
 import { useGetScreenSize } from "../../utils/hooks/useGetScreenSize";
 import {
-  calculateDesktopVw,
-  calculateMobileVw,
+  calculateDesktopPercentage,
+  calculateMobilePercentage,
 } from "@/utils/static/calculateVw";
 
 export interface ProductCardProps {
@@ -32,13 +32,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             alt={name}
             width={
               isMobile
-                ? calculateMobileVw(160) * screenSize
-                : calculateDesktopVw(285) * screenSize
+                ? calculateMobilePercentage(160) * screenSize
+                : calculateDesktopPercentage(285) * screenSize
             }
             height={
               isMobile
-                ? calculateMobileVw(250) * screenSize
-                : calculateDesktopVw(445) * screenSize
+                ? calculateMobilePercentage(250) * screenSize
+                : calculateDesktopPercentage(445) * screenSize
             }
           />
         </Link>
