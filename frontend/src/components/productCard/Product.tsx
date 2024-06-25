@@ -10,6 +10,7 @@ export interface ProductCardProps {
   name: string;
   thumbnail: string;
   price: number;
+  handle: string;
   collection: string;
   id: string;
 }
@@ -19,6 +20,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   id,
   name,
   thumbnail,
+  handle,
   price,
   collection,
 }: ProductCardProps) => {

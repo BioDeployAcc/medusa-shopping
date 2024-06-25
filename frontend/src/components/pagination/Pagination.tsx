@@ -4,33 +4,30 @@ import Link from "next/link";
 import classes from "./Pagination.module.scss";
 import clsx from "clsx";
 import { useMemo } from "react";
+import { ProductQueryType } from "../filter/Filter";
 
 export interface PaginationProps {
-  page: number;
   totalProducts: number;
-  limit: number;
-  query?: object;
+  query: ProductQueryType;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
-  page,
   totalProducts,
-  limit,
   query,
 }) => {
   const totalPages = useMemo(
-    () => Math.ceil(totalProducts / limit),
-    [totalProducts, limit]
+    () => Math.ceil(totalProducts / (query.limit ?? 10)),
+    [totalProducts, query.limit]
   );
 
   const pages = useMemo(
-    () => paginationCalculator(page, totalPages),
-    [page, totalProducts, limit]
+    () => paginationCalculator(query.page ?? 1, totalPages),
+    [query.page, totalProducts, query.limit]
   );
 
   return (
     <div className={classes.pagination}>
-      {page !== 1 && (
+      {query.page !== 1 && (
         <Link
           href={{
             query: {
@@ -47,7 +44,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <Link key={p} href={`?page=${p}`}>
           <div
             className={clsx(classes.page, {
-              [classes.active]: p === page,
+              [classes.active]: p === query.page,
             })}
             key={`page-${p}`}
           >
@@ -55,7 +52,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           </div>
         </Link>
       ))}
-      {page !== totalPages && (
+      {query.page !== totalPages && (
         <Link href={`?page=${totalPages}`}>
           <div className={classes.page}>Last</div>
         </Link>

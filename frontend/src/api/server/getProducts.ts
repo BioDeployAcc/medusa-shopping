@@ -1,8 +1,18 @@
 import { ProductQueryType } from "@/components/filter/Filter";
 import { storeBaseUrl } from "./base";
 import queryString from "query-string";
+import { Product } from "@medusajs/medusa";
 
-export async function getProducts(query: ProductQueryType) {
+export interface ProductSearchResult {
+  products: Product[];
+  count: number;
+  offset: number;
+  limit: number;
+}
+
+export async function getProducts(
+  query: ProductQueryType
+): Promise<ProductSearchResult | undefined> {
   try {
     const parsedQuery = queryString.stringify(query);
     const response = await fetch(

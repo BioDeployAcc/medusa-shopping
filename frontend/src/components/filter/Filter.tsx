@@ -16,6 +16,7 @@ export const filterSchema = z.object({
   order: z.string().optional(),
   direction: z.string().optional(),
   limit: z.number().optional(),
+  page: z.number().optional(),
 }); //Check if zod validation is overkill here
 
 export type ProductQueryType = z.infer<typeof filterSchema>;
@@ -26,6 +27,8 @@ export const defaultQuery: ProductQueryType = {
   category_id: "",
   gte: 0,
   lte: 1000,
+  limit: 12,
+  page: 1,
 };
 
 export interface FilterProps {
@@ -109,6 +112,7 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
           { label: "48", value: "48" },
         ]}
       />
+      <Input form={form} label="Page" attribute="page" isNumeric />
       <Link
         type="submit"
         className={classes.button}
