@@ -33,53 +33,55 @@ export const SingleProductView = ({ product }: SingleProductViewProps) => {
   }, [selectedOptions, product.variants]);
 
   return (
-    product && (
-      <div className="flex flex-col md:flex-row">
-        <div className="md:w-1/2">
-          <ProductImages
-            images={product.images?.map((image) => image.url) || []}
+    <div className="flex bg-white flex-col md:flex-row">
+      <div className="md:w-1/2">
+        <ProductImages
+          images={product.images?.map((image) => image.url) || []}
+        />
+      </div>
+      <div className="md:w-1/2">
+        <div className="flex flex-col justify-between h-full">
+          <ProductInfo
+            description={product.description || ""}
+            handle={product.handle || ""}
+            material={selectedVariant?.material || product.material || ""}
+            price={
+              selectedVariant
+                ? (getVariantPrice(selectedVariant, {
+                    currency_code: "USD",
+                    tax_code: "full",
+                    tax_rate: 0,
+                  }) /
+                    100) *
+                  quantity
+                : product?.variants?.length
+                ? (getVariantPrice(product?.variants[0], {
+                    currency_code: "USD",
+                    tax_code: "full",
+                    tax_rate: 0,
+                  }) /
+                    100) *
+                  quantity
+                : 0
+            }
+            selectedVariant={selectedVariant?.title}
+            tags={product.tags || []}
+            title={product.title || ""}
+            key={product.id}
+          />
+          <ProductOptionsForm
+            options={product.options || []}
+            onSubmit={(values) => {
+              onAddToCart(values);
+            }}
+            onChange={(values) => {
+              setSelectedOptions(values.options);
+              setQuantity(values.quantity);
+            }}
+            initialValues={{ quantity: 1 }}
           />
         </div>
-        <div className="md:w-1/2">
-          <div className="flex flex-col justify-between h-full">
-            <ProductInfo
-              description={product.description || ""}
-              handle={product.handle || ""}
-              material={selectedVariant?.material || product.material || ""}
-              price={
-                selectedVariant
-                  ? getVariantPrice(selectedVariant, {
-                      currency_code: "USD",
-                      tax_code: "full",
-                      tax_rate: 0,
-                    }) * quantity
-                  : product?.variants?.length
-                  ? getVariantPrice(product?.variants[0], {
-                      currency_code: "USD",
-                      tax_code: "full",
-                      tax_rate: 0,
-                    }) * quantity
-                  : 0
-              }
-              selectedVariant={selectedVariant?.title}
-              tags={product.tags || []}
-              title={product.title || ""}
-              key={product.id}
-            />
-            <ProductOptionsForm
-              options={product.options || []}
-              onSubmit={(values) => {
-                onAddToCart(values);
-              }}
-              onChange={(values) => {
-                setSelectedOptions(values.options);
-                setQuantity(values.quantity);
-              }}
-              initialValues={{ quantity: 1 }}
-            />
-          </div>
-        </div>
       </div>
-    )
+    </div>
   );
 };

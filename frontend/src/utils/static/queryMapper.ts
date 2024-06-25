@@ -1,7 +1,7 @@
 import { ProductQueryType } from "@/components/filter/Filter";
 import { StoreGetProductsParams } from "@medusajs/medusa";
 
-export const FIlterQueryToStoreQuery = (
+export const FilterQueryToStoreQuery = (
   query: ProductQueryType
 ): StoreGetProductsParams => {
   return {
@@ -9,10 +9,8 @@ export const FIlterQueryToStoreQuery = (
     q: query.q,
     collection_id: query.collection_id ? [query.collection_id] : [],
     category_id: query.category_id ? [query.category_id] : [],
-    order:
-      query.direction && query.order
-        ? `${query.direction}${query.order}`
-        : undefined,
+    offset: query.offset,
+    order: query.order ? `${query.direction}${query.order}` : undefined,
   };
 };
 
@@ -22,6 +20,7 @@ export const StoreQueryToFilterQuery = (
   return {
     limit: storeQuery.limit || 12,
     q: storeQuery.q || "",
+    offset: storeQuery.offset || 0,
     collection_id: storeQuery.collection_id?.length
       ? storeQuery.collection_id[0]
       : "",

@@ -14,11 +14,9 @@ export const LandingPageContent = async ({
   const products = await getProducts(query || {});
 
   return (
-    <div className="container w-screen flex flex-row space-x-0">
-      <div className="flex justify-center">
-        <Filter defaultValues={query} />
-      </div>
-      <div className="flex-column gap-3">
+    <div className="container w-screen flex flex-col md:flex-row ">
+      <Filter defaultValues={query} />
+      <div className="flex flex-col gap-3">
         <div className="flex flex-wrap justify-center gap-6">
           {products?.products?.map((product) => (
             <ProductCard

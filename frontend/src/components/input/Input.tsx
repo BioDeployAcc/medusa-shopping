@@ -28,6 +28,7 @@ export const Input = <RegisterValues extends FieldValues>({
         {...form.register(attribute)}
         className="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         type={isNumeric ? "number" : "text"}
+        min={isNumeric ? 1 : undefined}
         placeholder={placeholder}
       />
       {error && <span className="text-red-500 mt-1">{error}</span>}

@@ -39,7 +39,7 @@ export const Pagination: React.FC<PaginationProps> = ({
               offset: 0,
               limit: query.limit ?? 10,
             },
-            pathname: "/", //Test if this is needed
+            pathname: "/",
           }}
         >
           <div className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
@@ -50,9 +50,14 @@ export const Pagination: React.FC<PaginationProps> = ({
       {pages.map((p) => (
         <Link
           key={p}
-          href={`?offset=${(p - 1) * (query.limit ?? 10)}&limit=${
-            query.limit ?? 10
-          }`}
+          href={{
+            pathname: "/",
+            query: {
+              ...query,
+              offset: (p - 1) * (query.limit ?? 10),
+              limit: query.limit ?? 10,
+            },
+          }}
         >
           <div
             className={`px-2 py-1 rounded-md cursor-pointer ${
@@ -68,9 +73,14 @@ export const Pagination: React.FC<PaginationProps> = ({
       ))}
       {currentPage !== totalPages && (
         <Link
-          href={`?offset=${(totalPages - 1) * (query.limit ?? 10)}&limit=${
-            query.limit ?? 10
-          }`}
+          href={{
+            query: {
+              ...query,
+              offset: (totalPages - 1) * (query.limit ?? 10),
+              limit: query.limit ?? 10,
+            },
+            pathname: "/",
+          }}
         >
           <div className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
             Last

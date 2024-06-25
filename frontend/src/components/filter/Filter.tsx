@@ -5,18 +5,23 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Input from "../input";
 import SelectInput from "../selectInput";
-import { useCollections, useProductCategories } from "medusa-react";
+import {
+  useCollections,
+  useProductCategories,
+  useProducts,
+} from "medusa-react";
 import { StoreGetProductsParams } from "@medusajs/medusa";
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
 
 export type ProductQueryType = {
-  q: string;
-  collection_id: string;
-  category_id: string;
+  q?: string;
+  collection_id?: string;
+  category_id?: string;
   order?: string;
   direction?: string;
-  limit: number;
+  limit?: number;
+  offset?: number;
 };
 
 export const defaultQuery: ProductQueryType = {
@@ -24,6 +29,7 @@ export const defaultQuery: ProductQueryType = {
   collection_id: "",
   category_id: "",
   limit: 12,
+  offset: 0,
 };
 
 export interface FilterProps {
@@ -45,17 +51,12 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
   const { collections } = useCollections();
 
   return (
-    <div className="container mx-auto">
+    <div className="container box-border">
       <form
-        className="max-w-md mx-auto p-4 bg-slate-100 h-auto rounded-lg"
+        className="box-border mx-10 md:mx-0 md:ml-7 p-5 bg-slate-100 h-auto rounded-lg flex flex-col gap-y-3"
         onSubmit={form.handleSubmit(onQuery)}
       >
-        <Input
-          form={form}
-          label="Search"
-          attribute="q"
-          error={form.formState.errors.q?.message?.toString()}
-        />
+        <Input form={form} label="Search" attribute="q" />
         <SelectInput
           form={form}
           label="Category"
@@ -94,12 +95,12 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
           error={form.formState.errors.order?.message?.toString()}
           options={[
             { label: "Name", value: "title" },
-            { label: "Category", value: "category_id" },
+            { label: "Category", value: "handle" },
             {
               label: "Collection",
               value: "collection_id",
             },
-            { label: "Price", value: "variants.prices.amount" }, //See how to reference the price field
+            { label: "Price", value: "variants.prices.amount" },
           ]}
         />
         <SelectInput
@@ -110,7 +111,6 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
             { label: "Ascending", value: "" },
             { label: "Descending", value: "-" },
           ]}
-          error={form.formState.errors.direction?.message?.toString()}
         />
         <SelectInput
           form={form}
@@ -122,7 +122,6 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
             { label: "24", value: "24" },
             { label: "48", value: "48" },
           ]}
-          error={form.formState.errors.limit?.message?.toString()}
         />
         <button
           type="submit"
