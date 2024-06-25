@@ -1,39 +1,42 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductOption } from "@medusajs/medusa";
-import { PricedVariant } from "@medusajs/medusa/dist/types/pricing";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+"use client";
 
-export const schema = z.object({
-  optionId: z.string(),
-  variant: z.string(),
-  quantity: z
-    .number()
-    .min(1, "Minimum value is 1")
-    .max(1000, "Maximum value is 1000"),
-});
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ProductOption, ProductOptionValue } from "@medusajs/medusa";
+import { useEffect } from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
 
 import classes from "./ProductOptionsForm.module.scss";
 import SelectInput from "../selectInput";
 import Input from "../input";
 
-export type ProductFormType = z.infer<typeof schema>;
-
 export interface ProductOptionsFormProps {
   options: ProductOption[];
-  variants: PricedVariant[];
-  initialValues?: ProductFormType;
-  onChange: (values: ProductFormType) => void;
+  initialValues?: FieldValues;
+  onChange: (values: FieldValues) => void;
+  onSubmit: (values: FieldValues) => void;
 }
 
 export const ProductOptionsForm = ({
   options,
-  variants,
   initialValues,
+  onSubmit,
   onChange,
 }: ProductOptionsFormProps) => {
-  const form = useForm<ProductFormType>({
+  const schema = z.object({
+    ...options.reduce((acc, option) => {
+      return {
+        ...acc,
+        [`options.${option.id}`]: z.string(),
+      };
+    }, {}),
+    quantity: z
+      .number()
+      .min(1, "Minimum value is 1")
+      .max(1000, "Maximum value is 1000"),
+  });
+
+  const form = useForm<FieldValues>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
@@ -43,33 +46,45 @@ export const ProductOptionsForm = ({
   }, [form.watch()]);
 
   return (
-    <form className={classes.form}>
-      <SelectInput
-        form={form}
-        label="Variant"
-        attribute="variant"
-        options={variants
-          .filter((v) => (v.id && v.title) || v.sku)
-          .map((v) => ({
-            label: (v.title || v.sku)!, //Test what this is
-            value: (v.id || v.sku)!,
-          }))}
-      />
-      <SelectInput
-        form={form}
-        label="Option"
-        attribute="optionId"
-        options={options.map((o) => ({
-          label: o.title,
-          value: o.id,
-        }))}
-      />
+    <form
+      className={classes.form}
+      onSubmit={form.handleSubmit((values) => onSubmit(values))}
+    >
+      {options.map((option) => {
+        return (
+          <SelectInput
+            key={option.id}
+            form={form}
+            label={option.title}
+            attribute={`options.${option.id}`}
+            placeholder={`Select ${option.title}`}
+            options={option.values
+              .filter(
+                (
+                  value: ProductOptionValue,
+                  index: number,
+                  self: ProductOptionValue[]
+                ) => {
+                  return (
+                    self.findIndex(
+                      (v: ProductOptionValue) => v.value === value.value
+                    ) === index
+                  );
+                }
+              )
+              .map((value: ProductOptionValue) => ({
+                label: value.value,
+                value: value.value,
+              }))}
+          />
+        );
+      })}
       <Input
         form={form}
         label="Quantity"
         attribute="quantity"
         isNumeric
-        error={form.formState.errors.quantity?.message}
+        error={form.formState.errors.quantity?.message?.toString()}
       />
       <button type="submit" className={classes.submit}>
         Add to cart

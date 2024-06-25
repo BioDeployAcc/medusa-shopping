@@ -9,7 +9,7 @@ import { useGetScreenSize } from "@/utils/hooks/useGetScreenSize";
 import {
   calculateDesktopPercentage,
   calculateMobilePercentage,
-} from "@/utils/static/calculateVw";
+} from "@/utils/static/calculatePercentage";
 
 export interface ProductImagesProps {
   images: string[];
