@@ -11,10 +11,9 @@ export default function Home({
 }) {
   return (
     <main className="bg-white">
-      <div className="flex flex-col items-center justify-center h-screen">
-        <span className="text-black text-4xl font-bold mb-4">Shop</span>
-        <div className="absolute inset-0 bg-white opacity-50"></div>
-      </div>
+      <span className="text-black text-4xl font-bold mb-4 center w-screen flex justify-center">
+        Shop
+      </span>
       <Suspense fallback={<div>Loading...</div>}>
         <LandingPageContent query={searchParams} />
       </Suspense>

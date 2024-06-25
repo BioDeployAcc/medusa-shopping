@@ -5,7 +5,9 @@ import {
   calculateDesktopPercentage,
   calculateMobilePercentage,
 } from "@/utils/static/calculatePercentage";
+import logo from "@assets/logo.svg";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Navigation: React.FC = () => {
@@ -14,7 +16,7 @@ const Navigation: React.FC = () => {
     <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
       <div className="flex items-center">
         <Image
-          src="/logo.svg"
+          src={logo}
           alt="Company Logo"
           width={
             isMobile
@@ -27,30 +29,10 @@ const Navigation: React.FC = () => {
               : calculateDesktopPercentage(32) * screenSize
           }
         />
-        <h1 className="text-lg font-bold">Company Name</h1>
+        <Link href="/" className="text-lg font-bold">
+          Company Name
+        </Link>
       </div>
-      <ul className="flex space-x-4">
-        <li>
-          <a href="#" className="text-white hover:text-gray-300">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#" className="text-white hover:text-gray-300">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#" className="text-white hover:text-gray-300">
-            Products
-          </a>
-        </li>
-        <li>
-          <a href="#" className="text-white hover:text-gray-300">
-            Contact
-          </a>
-        </li>
-      </ul>
     </nav>
   );
 };

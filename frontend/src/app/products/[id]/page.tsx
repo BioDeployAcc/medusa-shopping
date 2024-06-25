@@ -9,7 +9,7 @@ const ProductPage = async ({ params: { id } }: { params: { id: string } }) => {
     redirect("/404");
   }
 
-  return <SingleProductView product={product} onAddToCart={() => {}} />;
+  return product && <SingleProductView product={product} />;
 };
 
 export default ProductPage;

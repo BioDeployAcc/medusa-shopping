@@ -14,25 +14,27 @@ export const LandingPageContent = async ({
   const products = await getProducts(query || {});
 
   return (
-    <div className="container mx-auto">
+    <div className="container w-screen flex flex-row space-x-0">
       <div className="flex justify-center">
         <Filter defaultValues={query} />
       </div>
-      <div className="flex flex-wrap justify-center">
-        {products?.products?.map((product) => (
-          <ProductCard
-            key={product.id}
-            name={product.title}
-            price={product.variants[0].prices[0].amount / 100}
-            thumbnail={product.thumbnail || "/images/placeholder.png"}
-            id={product.id}
-            handle={product.handle || "product"}
-            collection={product.collection}
-          />
-        ))}
-      </div>
-      <div className="flex justify-center">
-        <Pagination query={query} totalProducts={products?.count || 0} />
+      <div className="flex-column gap-3">
+        <div className="flex flex-wrap justify-center gap-6">
+          {products?.products?.map((product) => (
+            <ProductCard
+              key={product.id}
+              name={product.title}
+              price={product.variants[0].prices[0].amount / 100}
+              thumbnail={product.thumbnail || "/images/placeholder.png"}
+              id={product.id}
+              handle={product.handle || "product"}
+              collection={product.collection}
+            />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <Pagination query={query} totalProducts={products?.count || 0} />
+        </div>
       </div>
     </div>
   );

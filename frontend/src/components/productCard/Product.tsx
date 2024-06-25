@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useGetScreenSize } from "../../utils/hooks/useGetScreenSize";
 import {
@@ -27,7 +29,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="bg-white rounded-lg shadow-lg">
       <div className="relative">
-        <Link href={`/product/${id}`}>
+        <Link href={`/products/${id}`}>
           <Image
             src={thumbnail}
             alt={name}
@@ -49,7 +51,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
       <div className="p-4">
-        <Link href={`/product/${id}`}>
+        <Link href={`/products/${id}`}>
           <span className="text-lg font-semibold">{name}</span>
         </Link>
         <span className="text-gray-500">{collection}</span>

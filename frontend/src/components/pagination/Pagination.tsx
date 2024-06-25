@@ -19,19 +19,25 @@ export const Pagination: React.FC<PaginationProps> = ({
     [totalProducts, query.limit]
   );
 
+  const currentPage = useMemo(
+    () => (query.offset && query.limit ? query.offset / query.limit + 1 : 1),
+    [query.offset, query.limit]
+  );
+
   const pages = useMemo(
-    () => paginationCalculator(query.page ?? 1, totalPages),
-    [query.page, totalPages]
+    () => paginationCalculator(currentPage, totalPages),
+    [query.offset, totalPages, query.limit]
   );
 
   return (
     <div className="flex justify-center items-center space-x-2">
-      {query.page !== 1 && (
+      {currentPage !== 1 && (
         <Link
           href={{
             query: {
               ...query,
-              page: 1,
+              offset: 0,
+              limit: query.limit ?? 10,
             },
             pathname: "/", //Test if this is needed
           }}
@@ -42,10 +48,15 @@ export const Pagination: React.FC<PaginationProps> = ({
         </Link>
       )}
       {pages.map((p) => (
-        <Link key={p} href={`?page=${p}`}>
+        <Link
+          key={p}
+          href={`?offset=${(p - 1) * (query.limit ?? 10)}&limit=${
+            query.limit ?? 10
+          }`}
+        >
           <div
             className={`px-2 py-1 rounded-md cursor-pointer ${
-              p === query.page
+              p === currentPage
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 hover:bg-gray-300"
             }`}
@@ -55,8 +66,12 @@ export const Pagination: React.FC<PaginationProps> = ({
           </div>
         </Link>
       ))}
-      {query.page !== totalPages && (
-        <Link href={`?page=${totalPages}`}>
+      {currentPage !== totalPages && (
+        <Link
+          href={`?offset=${(totalPages - 1) * (query.limit ?? 10)}&limit=${
+            query.limit ?? 10
+          }`}
+        >
           <div className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
             Last
           </div>

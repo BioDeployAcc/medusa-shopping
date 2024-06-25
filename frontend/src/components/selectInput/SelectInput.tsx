@@ -11,13 +11,17 @@ export interface SelectInputProps<RegisterValues extends FieldValues> {
   options: SelectOption[];
   label: string;
   placeholder?: string;
+  isNumeric?: boolean;
+  error?: string;
 }
 
 export const SelectInput = <RegisterValues extends FieldValues>({
   form,
   attribute,
+  isNumeric,
   options,
   label,
+  error,
   placeholder,
 }: SelectInputProps<RegisterValues>) => {
   return (
@@ -38,11 +42,15 @@ export const SelectInput = <RegisterValues extends FieldValues>({
           </option>
         )}
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={isNumeric ? Number(option.value) : option.value}
+          >
             {option.label}
           </option>
         ))}
       </select>
+      {error && <span className="text-red-500 mt-1">{error}</span>}
     </div>
   );
 };

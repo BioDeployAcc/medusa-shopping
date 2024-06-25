@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetScreenSize } from "@/utils/hooks/useGetScreenSize";
+import logo from "@assets/logo.svg";
 import {
   calculateDesktopPercentage,
   calculateMobilePercentage,
@@ -15,8 +16,8 @@ export const Footer = () => {
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center mb-4 md:mb-0">
           <Image
-            src="/logo.svg"
             alt="Logo"
+            src={logo}
             width={
               isMobile
                 ? calculateMobilePercentage(64) * screenSize
