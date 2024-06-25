@@ -1,4 +1,4 @@
-const paginationCalculator = (
+export const paginationCalculator = (
   page: number,
   totalPages: number,
 ) => {

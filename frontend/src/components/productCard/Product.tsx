@@ -1,5 +1,4 @@
 import Image from "next/image";
-import classes from "./ProductCard.module.scss";
 import { useGetScreenSize } from "../../utils/hooks/useGetScreenSize";
 import {
   calculateDesktopPercentage,
@@ -26,8 +25,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }: ProductCardProps) => {
   const { screenSize, isMobile } = useGetScreenSize();
   return (
-    <div className={classes.container}>
-      <div className={classes.imageContainer}>
+    <div className="bg-white rounded-lg shadow-lg">
+      <div className="relative">
         <Link href={`/product/${id}`}>
           <Image
             src={thumbnail}
@@ -42,13 +41,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 ? calculateMobilePercentage(250) * screenSize
                 : calculateDesktopPercentage(445) * screenSize
             }
+            className="rounded-t-lg"
           />
         </Link>
+        <div className="absolute top-0 right-0 p-2 bg-gray-800 rounded-bl-lg">
+          <span className="text-white">${price}</span>
+        </div>
+      </div>
+      <div className="p-4">
         <Link href={`/product/${id}`}>
-          <span className={classes.name}>{name}</span>
+          <span className="text-lg font-semibold">{name}</span>
         </Link>
-        <span className={classes.collection}>{collection}</span>
-        <span className={classes.price}>${price}</span>
+        <span className="text-gray-500">{collection}</span>
+        <p className="text-gray-700">{handle}</p>
       </div>
     </div>
   );

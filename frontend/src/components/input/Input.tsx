@@ -11,8 +11,6 @@ export interface InputProps<RegisterValues extends FieldValues> {
   error?: string;
 }
 
-import classes from "./Input.module.scss";
-
 export const Input = <RegisterValues extends FieldValues>({
   label,
   attribute,
@@ -22,17 +20,17 @@ export const Input = <RegisterValues extends FieldValues>({
   isNumeric = false,
 }: InputProps<RegisterValues>) => {
   return (
-    <div className={classes.container}>
-      <label className={classes.label} htmlFor={attribute}>
+    <div className="flex flex-col">
+      <label className="text-gray-600 mb-1" htmlFor={attribute}>
         {label}
       </label>
       <input
         {...form.register(attribute)}
-        className={classes.input}
+        className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
         type={isNumeric ? "number" : "text"}
         placeholder={placeholder}
       />
-      {error && <span className={classes.error}>{error}</span>}
+      {error && <span className="text-red-500 mt-1">{error}</span>}
     </div>
   );
 };

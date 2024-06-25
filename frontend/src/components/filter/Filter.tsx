@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import classes from "./Filter.module.scss";
 import { z } from "zod";
 import Input from "../input";
 import SelectInput from "../selectInput";
@@ -47,7 +46,7 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
   const { collections } = useCollections();
 
   return (
-    <form className={classes.container}>
+    <form className="bg-F4F5F7 w-1/4 md:w-1/5 mx-auto">
       <Input form={form} label="Search" attribute="q" />
       <Input form={form} label="Min Price" attribute="gte" isNumeric />
       <Input form={form} label="Max Price" attribute="lte" isNumeric />
@@ -117,7 +116,7 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
       <Input form={form} label="Page" attribute="page" isNumeric />
       <Link
         type="submit"
-        className={classes.button}
+        className="w-90% bg-white hover:bg-gray-200 active:bg-gray-300"
         href={{
           pathname: "/search",
           query: {

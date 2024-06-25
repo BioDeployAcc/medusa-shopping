@@ -1,6 +1,5 @@
 "use client";
 
-import classes from "./SingleProductView.module.scss";
 import ProductImages from "../productImages";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { ProductInfo } from "../productInfo/ProductInfo";
@@ -34,12 +33,14 @@ export const SingleProductView = ({
   }, [selectedOptions, product.variants]);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.row}>
+    <div className="flex flex-col md:flex-row">
+      <div className="md:w-1/2">
         <ProductImages
           images={product.images?.map((image) => image.url) || []}
         />
-        <div className={classes.column}>
+      </div>
+      <div className="md:w-1/2">
+        <div className="flex flex-col justify-between h-full">
           <ProductInfo
             description={product.description || ""}
             handle={product.handle || ""}

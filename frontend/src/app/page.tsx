@@ -1,5 +1,4 @@
 import { ProductQueryType } from "@/components/filter/Filter";
-import classes from "./page.module.scss";
 import { Suspense } from "react";
 import LandingPageContent from "@/components/landingPageContent";
 
@@ -11,14 +10,14 @@ export default function Home({
   searchParams?: ProductQueryType;
 }) {
   return (
-    <main className={classes.main}>
-      <div className={classes.landingImage}>
-        <span className={classes.title}>Shop</span>
-        <div className={classes.backdrop}></div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <LandingPageContent query={searchParams} />
-        </Suspense>
+    <main className="bg-white">
+      <div className="flex flex-col items-center justify-center h-screen">
+        <span className="text-black text-4xl font-bold mb-4">Shop</span>
+        <div className="absolute inset-0 bg-white opacity-50"></div>
       </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LandingPageContent query={searchParams} />
+      </Suspense>
     </main>
   );
 }

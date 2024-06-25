@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
 
-import classes from "./Pagination.module.scss";
-import clsx from "clsx";
 import { useMemo } from "react";
 import { ProductQueryType } from "../filter/Filter";
+import { paginationCalculator } from "@utils/static/paginationCalculator";
 
 export interface PaginationProps {
   totalProducts: number;
@@ -22,11 +21,11 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   const pages = useMemo(
     () => paginationCalculator(query.page ?? 1, totalPages),
-    [query.page, totalProducts, totalPages]
+    [query.page, totalPages]
   );
 
   return (
-    <div className={classes.pagination}>
+    <div className="flex justify-center items-center space-x-2">
       {query.page !== 1 && (
         <Link
           href={{
@@ -37,15 +36,19 @@ export const Pagination: React.FC<PaginationProps> = ({
             pathname: "/", //Test if this is needed
           }}
         >
-          <div className={classes.page}>First</div>
+          <div className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
+            First
+          </div>
         </Link>
       )}
       {pages.map((p) => (
         <Link key={p} href={`?page=${p}`}>
           <div
-            className={clsx(classes.page, {
-              [classes.active]: p === query.page,
-            })}
+            className={`px-2 py-1 rounded-md cursor-pointer ${
+              p === query.page
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
             key={`page-${p}`}
           >
             {p}
@@ -54,7 +57,9 @@ export const Pagination: React.FC<PaginationProps> = ({
       ))}
       {query.page !== totalPages && (
         <Link href={`?page=${totalPages}`}>
-          <div className={classes.page}>Last</div>
+          <div className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
+            Last
+          </div>
         </Link>
       )}
     </div>

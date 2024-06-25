@@ -1,4 +1,3 @@
-import classes from "./LandingPageContent.module.scss";
 import Filter from "../filter";
 import { defaultQuery, ProductQueryType } from "../filter/Filter";
 import ProductCard from "../productCard";
@@ -15,27 +14,25 @@ export const LandingPageContent = async ({
   const products = await getProducts(query || {});
 
   return (
-    <div className={classes.container}>
-      <div className={classes.filter}>
+    <div className="container mx-auto">
+      <div className="flex justify-center">
         <Filter defaultValues={query} />
       </div>
-      <div className={classes.productsSection}>
-        <div className={classes.productsRow}>
-          {products?.products.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.title}
-              price={product.variants[0].prices[0].amount / 100}
-              thumbnail={product.thumbnail || "/images/placeholder.png"}
-              id={product.id}
-              handle={product.handle || "product"}
-              collection={product.collection}
-            />
-          ))}
-        </div>
-        <div className={classes.pagination}>
-          <Pagination query={query} totalProducts={products?.count || 0} />
-        </div>
+      <div className="flex flex-wrap justify-center">
+        {products?.products?.map((product) => (
+          <ProductCard
+            key={product.id}
+            name={product.title}
+            price={product.variants[0].prices[0].amount / 100}
+            thumbnail={product.thumbnail || "/images/placeholder.png"}
+            id={product.id}
+            handle={product.handle || "product"}
+            collection={product.collection}
+          />
+        ))}
+      </div>
+      <div className="flex justify-center">
+        <Pagination query={query} totalProducts={products?.count || 0} />
       </div>
     </div>
   );

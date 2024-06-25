@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import classes from "./ProductOptionsForm.module.scss";
 import SelectInput from "../selectInput";
 import Input from "../input";
 
@@ -43,52 +42,57 @@ export const ProductOptionsForm = ({
 
   useEffect(() => {
     onChange(form.getValues());
-  }, [{ ...form.watch() }]);
+  }, [...Object.entries(form.watch())]);
 
   return (
-    <form
-      className={classes.form}
-      onSubmit={form.handleSubmit((values) => onSubmit(values))}
-    >
-      {options.map((option) => {
-        return (
-          <SelectInput
-            key={option.id}
-            form={form}
-            label={option.title}
-            attribute={`options.${option.id}`}
-            placeholder={`Select ${option.title}`}
-            options={option.values
-              .filter(
-                (
-                  value: ProductOptionValue,
-                  index: number,
-                  self: ProductOptionValue[]
-                ) => {
-                  return (
-                    self.findIndex(
-                      (v: ProductOptionValue) => v.value === value.value
-                    ) === index
-                  );
-                }
-              )
-              .map((value: ProductOptionValue) => ({
-                label: value.value,
-                value: value.value,
-              }))}
-          />
-        );
-      })}
-      <Input
-        form={form}
-        label="Quantity"
-        attribute="quantity"
-        isNumeric
-        error={form.formState.errors.quantity?.message?.toString()}
-      />
-      <button type="submit" className={classes.submit}>
-        Add to cart
-      </button>
-    </form>
+    <div className="container mx-auto">
+      <form
+        className="max-w-md mx-auto p-4"
+        onSubmit={form.handleSubmit((values) => onSubmit(values))}
+      >
+        {options.map((option) => {
+          return (
+            <SelectInput
+              key={option.id}
+              form={form}
+              label={option.title}
+              attribute={`options.${option.id}`}
+              placeholder={`Select ${option.title}`}
+              options={option.values
+                .filter(
+                  (
+                    value: ProductOptionValue,
+                    index: number,
+                    self: ProductOptionValue[]
+                  ) => {
+                    return (
+                      self.findIndex(
+                        (v: ProductOptionValue) => v.value === value.value
+                      ) === index
+                    );
+                  }
+                )
+                .map((value: ProductOptionValue) => ({
+                  label: value.value,
+                  value: value.value,
+                }))}
+            />
+          );
+        })}
+        <Input
+          form={form}
+          label="Quantity"
+          attribute="quantity"
+          isNumeric
+          error={form.formState.errors.quantity?.message?.toString()}
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add to cart
+        </button>
+      </form>
+    </div>
   );
 };
