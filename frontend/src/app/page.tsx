@@ -1,26 +1,28 @@
-import Image from "next/image";
-import classes from "./page.module.css";
-import { Suspense } from "react";
-import { LandingPageContent } from "@/components/landingPageContent/landingPageContent";
-import { ProductQueryType } from "@/components/filter/Filter";
+"use server";
 
-export default function Home({
+import classes from "./page.module.scss";
+import LandingPageContent from "@/components/landingPageContent";
+import { ProductQueryType } from "@/components/filter/Filter";
+import { getProducts } from "@/api/server/getProducts";
+
+export default async function Home({
   searchParams,
 }: {
   searchParams?: ProductQueryType;
 }) {
+  const products = await getProducts(searchParams ?? {});
   return (
     <main className={classes.main}>
       <div className={classes.landingImage}>
-        <Image src="/images/landing.jpg" alt="Landing Image" layout="fill" />
         <span className={classes.title}>Shop</span>
         <div className={classes.backdrop}></div>
       </div>
       <div className={classes.content}>
-        <Suspense fallback={<div>Loading...</div>}>
-          //Test if spinner is needed
-          <LandingPageContent query={searchParams} />
-        </Suspense>
+        <LandingPageContent
+          products={products?.products}
+          query={searchParams}
+          totalProducts={products?.count}
+        />
       </div>
     </main>
   );

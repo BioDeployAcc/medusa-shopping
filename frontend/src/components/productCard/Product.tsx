@@ -1,5 +1,5 @@
 import Image from "next/image";
-import classes from "./ProductCard.module.css";
+import classes from "./ProductCard.module.scss";
 import { useGetScreenSize } from "../../utils/hooks/useGetScreenSize";
 import {
   calculateDesktopPercentage,

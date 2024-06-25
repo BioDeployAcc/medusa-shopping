@@ -22,7 +22,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   const pages = useMemo(
     () => paginationCalculator(query.page ?? 1, totalPages),
-    [query.page, totalProducts, query.limit]
+    [query.page, totalProducts, totalPages]
   );
 
   return (

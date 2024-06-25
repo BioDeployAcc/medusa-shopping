@@ -43,7 +43,7 @@ export const ProductOptionsForm = ({
 
   useEffect(() => {
     onChange(form.getValues());
-  }, [form.watch()]);
+  }, [{ ...form.watch() }]);
 
   return (
     <form

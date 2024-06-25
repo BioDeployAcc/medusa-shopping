@@ -31,7 +31,7 @@ export const SingleProductView = ({
           variant.options!.find((x) => x === key)?.value === value
       );
     });
-  }, [selectedOptions]);
+  }, [selectedOptions, product.variants]);
 
   return (
     <div className={classes.container}>

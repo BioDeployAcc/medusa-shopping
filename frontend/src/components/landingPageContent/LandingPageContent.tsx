@@ -1,19 +1,22 @@
-import classes from "./landingPageContent.module.css";
+"use client";
+import classes from "./LandingPageContent.module.scss";
 import Filter from "../filter";
 import { defaultQuery, ProductQueryType } from "../filter/Filter";
 import ProductCard from "../productCard";
 import Pagination from "../pagination";
-import { getProducts } from "@/api/server/getProducts";
+import { Product } from "@medusajs/medusa";
 
 export interface LandingPageContentProps {
   query?: ProductQueryType;
+  products?: Product[];
+  totalProducts?: number;
 }
 
-export const LandingPageContent = async ({
+export const LandingPageContent = ({
   query = defaultQuery,
+  products,
+  totalProducts = 0,
 }: LandingPageContentProps) => {
-  const products = await getProducts(query || {});
-
   return (
     <div className={classes.container}>
       <div className={classes.filter}>
@@ -21,10 +24,11 @@ export const LandingPageContent = async ({
       </div>
       <div className={classes.productsSection}>
         <div className={classes.productsRow}>
-          {products?.products.map((product) => (
+          {products?.map((product) => (
             <ProductCard
+              key={product.id}
               name={product.title}
-              price={product.variants[0].prices[0].amount / 100}
+              price={product.variants[0]?.prices[0]?.amount / 100}
               thumbnail={product.thumbnail || "/images/placeholder.png"}
               id={product.id}
               handle={product.handle || "product"}
@@ -33,7 +37,7 @@ export const LandingPageContent = async ({
           ))}
         </div>
         <div className={classes.pagination}>
-          <Pagination query={query} totalProducts={products?.count || 0} />
+          <Pagination query={query} totalProducts={totalProducts} />
         </div>
       </div>
     </div>
