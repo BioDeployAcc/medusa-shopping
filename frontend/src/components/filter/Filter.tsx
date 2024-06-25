@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import classes from "./Filter.module.scss";
@@ -9,8 +11,8 @@ import Link from "next/link";
 
 export const filterSchema = z.object({
   q: z.string().optional(),
-  collection_id: z.string().optional(),
-  category_id: z.string().optional(),
+  collection_id: z.string().optional() || z.array(z.string()).optional(),
+  category_id: z.string().optional() || z.array(z.string()).optional(),
   gte: z.number().optional(),
   lte: z.number().optional(),
   order: z.string().optional(),
@@ -120,6 +122,8 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
           pathname: "/search",
           query: {
             ...form.getValues(),
+            collection_id: [form.watch("collection_id") || ""],
+            category_id: [form.watch("category_id") || ""],
             order: `${form.watch("direction")}${form.watch("order")}`, //check is mapping ok here
           },
         }}

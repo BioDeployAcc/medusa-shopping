@@ -1,29 +1,26 @@
-"use server";
-
-import classes from "./page.module.scss";
-import LandingPageContent from "@/components/landingPageContent";
 import { ProductQueryType } from "@/components/filter/Filter";
-import { getProducts } from "@/api/server/getProducts";
+import classes from "./page.module.scss";
+import { Suspense } from "react";
+import LandingPageContent from "@/components/landingPageContent";
 
-export default async function Home({
+export const experimental_ppr = true;
+
+export default function Home({
   searchParams,
 }: {
   searchParams?: ProductQueryType;
 }) {
-  const products = await getProducts(searchParams ?? {});
   return (
     <main className={classes.main}>
       <div className={classes.landingImage}>
         <span className={classes.title}>Shop</span>
         <div className={classes.backdrop}></div>
-      </div>
-      <div className={classes.content}>
-        <LandingPageContent
-          products={products?.products}
-          query={searchParams}
-          totalProducts={products?.count}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LandingPageContent query={searchParams} />
+        </Suspense>
       </div>
     </main>
   );
 }
+
+//PPR usage

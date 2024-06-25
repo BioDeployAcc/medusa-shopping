@@ -13,14 +13,9 @@ export interface ProductSearchResult {
 export async function getProducts(
   query: ProductQueryType
 ): Promise<ProductSearchResult | undefined> {
-  try {
-    const parsedQuery = queryString.stringify(query);
-    const response = await fetch(
-      `${storeBaseUrl}/products/store?${parsedQuery}`
-    ); //Check if parsed query is needed here
-    const data = await response.json();
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
+  const parsedQuery = queryString.stringify(query);
+  const response = await fetch(`${storeBaseUrl}/products/store?${parsedQuery}`); //Check if parsed query is needed here
+  const data = await response.json();
+  return data;
+  //Explanation for no try catch block: This function is used in ppr, which is a server side rendering function and any errors have to be handled by next.js itself: see https://nextjs.org/docs/messages/ppr-caught-error
 }
