@@ -11,7 +11,6 @@ export async function getProduct(
   try {
     const response = await fetch(`${storeBaseUrl}/products/${id}`);
     const data: ProductSearchResult = await response.json();
-    console.log(data);
     return data.product;
   } catch (e) {
     console.log(e);

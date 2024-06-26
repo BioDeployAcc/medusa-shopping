@@ -36,7 +36,7 @@ export const LandingPageContent = async ({
           </div>
         ) : (
           <div className="flex justify-center">
-            <h1 className="text-2xl text-gray-700">No products found</h1>
+            <h1 className="text-2xl text-gray-700 h-auto">No products found</h1>
           </div>
         )}
       </div>

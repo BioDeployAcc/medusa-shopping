@@ -3,7 +3,7 @@
 import ProductImages from "../productImages";
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing";
 import { ProductInfo } from "../productInfo/ProductInfo";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { getVariantPrice } from "medusa-react";
 import ProductOptionsForm from "../productOptionsForm";
 import { FieldValues } from "react-hook-form";
@@ -13,24 +13,28 @@ export interface SingleProductViewProps {
 }
 
 export const SingleProductView = ({ product }: SingleProductViewProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<{
-    [key: string]: string;
-  }>({});
-
   const [quantity, setQuantity] = useState(1);
 
   const onAddToCart = (values: FieldValues) => {
     console.log(values);
   };
 
-  const selectedVariant = useMemo(() => {
-    return product?.variants?.find((variant) => {
-      return Object.entries(selectedOptions).every(
-        ([key, value]) =>
-          variant.options!.find((x) => x === key)?.value === value
-      );
+  const [selectedVariant, setSelectedVariant] = useState(
+    product?.variants?.length ? product.variants[0] : undefined
+  );
+
+  useEffect(() => {
+    console.log(selectedVariant);
+  }, [selectedVariant]);
+
+  const selectVariant = (selectedOptions: FieldValues) => {
+    const selected = product?.variants?.find((variant) => {
+      return variant?.options?.every((option) => {
+        return selectedOptions[option.option_id] === option.value;
+      });
     });
-  }, [selectedOptions, product.variants]);
+    selected && setSelectedVariant(selected);
+  };
 
   return (
     <div className="flex flex-col items-center md:items-start md:flex-row w-screen p-[4vw] md:p-[2vw] md:px-[4vw] bg-white justify-center md:justify-between">
@@ -75,7 +79,7 @@ export const SingleProductView = ({ product }: SingleProductViewProps) => {
               onAddToCart(values);
             }}
             onChange={(values) => {
-              setSelectedOptions(values.options);
+              selectVariant(values.options);
               setQuantity(values.quantity);
             }}
             initialValues={{ quantity: 1 }}
