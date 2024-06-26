@@ -1,6 +1,11 @@
 import { ProductQueryType } from "@/components/filter/Filter";
 import { Suspense } from "react";
 import LandingPageContent from "@/components/landingPageContent";
+import {
+  ErrorBoundary,
+  ErrorComponent,
+} from "next/dist/client/components/error-boundary";
+import NotFound from "./not-found";
 
 export const experimental_ppr = true;
 

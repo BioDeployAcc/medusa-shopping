@@ -22,32 +22,19 @@ export const ProductOptionsForm = ({
   onSubmit,
   onChange,
 }: ProductOptionsFormProps) => {
-  const schema = z.object({
-    ...options.reduce((acc, option) => {
-      return {
-        ...acc,
-        [`options.${option.id}`]: z.string(),
-      };
-    }, {}),
-    quantity: z
-      .number()
-      .min(1, "Minimum value is 1")
-      .max(1000, "Maximum value is 1000"),
-  });
-
   const form = useForm<FieldValues>({
-    resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
 
   useEffect(() => {
     onChange(form.getValues());
+    console.log(form.getValues());
   }, [...Object.entries(form.watch())]);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto w-full flex">
       <form
-        className="max-w-md mx-auto p-4"
+        className="mx-auto flex flex-col w-full gap-y-[2vw] md:gap-y-[1vw]"
         onSubmit={form.handleSubmit((values) => onSubmit(values))}
       >
         {options.map((option) => {
@@ -79,16 +66,10 @@ export const ProductOptionsForm = ({
             />
           );
         })}
-        <Input
-          form={form}
-          label="Quantity"
-          attribute="quantity"
-          isNumeric
-          error={form.formState.errors.quantity?.message?.toString()}
-        />
+        <Input form={form} label="Quantity" attribute="quantity" isNumeric />
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white p-[2vw] md:p-[1vw] rounded-[0.4vw]"
         >
           Add to cart
         </button>

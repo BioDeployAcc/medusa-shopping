@@ -19,12 +19,12 @@ export const ProductImages: React.FC<ProductImagesProps> = ({ images }) => {
   const { isMobile, screenSize } = useGetScreenSize();
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col md:flex-row-reverse md:gap-x-[2vw] items-center">
       <div className="w-full">
         <Image
           src={main}
+          className="object-cover"
           alt="product image"
-          className="w-full"
           width={
             isMobile
               ? screenSize * calculateMobilePercentage(325)
@@ -37,22 +37,22 @@ export const ProductImages: React.FC<ProductImagesProps> = ({ images }) => {
           }
         />
       </div>
-      <div className="flex justify-center mt-4">
+      <div
+        className="flex flex-row w-full gap-x-[4vw] md:flex-col 
+                  md:h-full md:gap-y-[2vw] md:w-auto justify-center "
+      >
         {images.map((img, index) => (
           <div
             key={img}
             className={clsx(
-              "w-12 h-12 mx-2 rounded-full overflow-hidden",
+              "rounded-full overflow-hidden",
               img === main && "border-2 border-blue-500"
             )}
             onClick={() => setMain(img)}
           >
             <Image
               src={img}
-              className={clsx(
-                "w-full h-full object-cover",
-                img === main && "opacity-75"
-              )}
+              className={clsx("object-cover", img === main && "opacity-75")}
               alt={`product image ${index}`}
               width={
                 isMobile

@@ -33,14 +33,14 @@ export const SingleProductView = ({ product }: SingleProductViewProps) => {
   }, [selectedOptions, product.variants]);
 
   return (
-    <div className="flex bg-white flex-col md:flex-row">
+    <div className="flex flex-col items-center md:items-start md:flex-row w-screen p-[4vw] md:p-[2vw] md:px-[4vw] bg-white justify-center md:justify-between">
       <div className="md:w-1/2">
         <ProductImages
           images={product.images?.map((image) => image.url) || []}
         />
       </div>
       <div className="md:w-1/2">
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col">
           <ProductInfo
             description={product.description || ""}
             handle={product.handle || ""}
