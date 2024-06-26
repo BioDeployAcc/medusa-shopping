@@ -13,7 +13,7 @@ import React from "react";
 const Navigation: React.FC = () => {
   const { isMobile, screenSize } = useGetScreenSize();
   return (
-    <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
+    <nav className="flex items-center justify-between p-[2vw] md:p-[1vw] bg-gray-800 text-white">
       <div className="flex items-center">
         <Image
           src={logo}
@@ -29,7 +29,7 @@ const Navigation: React.FC = () => {
               : calculateDesktopPercentage(32) * screenSize
           }
         />
-        <Link href="/" className="text-lg font-bold">
+        <Link href="/" className="text-[4vw] md:text-[1.5vw] font-bold">
           Company Name
         </Link>
       </div>

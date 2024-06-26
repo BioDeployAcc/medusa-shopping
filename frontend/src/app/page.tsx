@@ -1,11 +1,7 @@
 import { ProductQueryType } from "@/components/filter/Filter";
 import { Suspense } from "react";
 import LandingPageContent from "@/components/landingPageContent";
-import {
-  ErrorBoundary,
-  ErrorComponent,
-} from "next/dist/client/components/error-boundary";
-import NotFound from "./not-found";
+import Spinner from "@/components/spinner";
 
 export const experimental_ppr = true;
 
@@ -19,7 +15,13 @@ export default function Home({
       <span className="text-black text-4xl font-bold mb-4 center w-screen flex justify-center">
         Shop
       </span>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="bg-white h-[50vw] w-screen flex justify-center align-center">
+            <Spinner />
+          </div>
+        }
+      >
         <LandingPageContent query={searchParams} />
       </Suspense>
     </main>

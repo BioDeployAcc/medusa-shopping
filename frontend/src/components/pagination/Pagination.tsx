@@ -30,7 +30,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   );
 
   return (
-    <div className="flex justify-center items-center space-x-2">
+    <div className="flex justify-center items-center space-x-[1vw] md:space-x-[0.5vw]">
       {currentPage !== 1 && (
         <Link
           href={{
@@ -42,7 +42,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             pathname: "/",
           }}
         >
-          <div className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
+          <div className="px-[1vw] text-[2vw] md:text-[1vw] py-[0.5vw] rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
             First
           </div>
         </Link>
@@ -60,7 +60,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           }}
         >
           <div
-            className={`px-2 py-1 rounded-md cursor-pointer ${
+            className={`px-[1vw] text-[2vw] md:text-[1vw] py-[0.5vw] rounded-md cursor-pointer ${
               p === currentPage
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 hover:bg-gray-300"
@@ -82,7 +82,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             pathname: "/",
           }}
         >
-          <div className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
+          <div className="px-[1vw] text-[2vw] md:text-[1vw] py-[0.5vw] rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer">
             Last
           </div>
         </Link>

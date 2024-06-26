@@ -49,9 +49,9 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
   const { collections } = useCollections();
 
   return (
-    <div className="container box-border w-full md:w-[25vw]">
+    <div className="container box-border w-full md:w-[30vw]">
       <form
-        className="box-border  w-full md:mx-0 md:ml-[2vw] p-[2vw] md:p-[1vw] bg-slate-100 h-auto rounded-lg flex flex-col gap-y-[2vw] md:gap-y-[1vw]"
+        className="box-border w-full p-[2vw] md:p-[1vw] bg-slate-100 h-auto rounded-lg flex flex-col gap-y-[2vw] md:gap-y-[1vw]"
         onSubmit={form.handleSubmit(onQuery)}
       >
         <Input form={form} label="Search" attribute="q" />

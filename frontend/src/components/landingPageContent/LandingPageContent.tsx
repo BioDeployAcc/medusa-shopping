@@ -14,7 +14,7 @@ export const LandingPageContent = async ({
   const products = await getProducts(query || {});
 
   return (
-    <div className="w-[100vw] flex flex-col md:flex-row items-center gap-y-[5vw] justify-center md:items-start md:justify-between">
+    <div className="w-[100vw] px-[5vw] md:px-[2.5vw] flex flex-col md:flex-row items-center gap-y-[5vw] justify-center md:items-start md:justify-between">
       <Filter defaultValues={query} />
       <div className="flex flex-col w-full md:min-w-[66vw] justify-center">
         <div className="flex flex-wrap justify-center w-full gap-[4vw] md:gap-[2vw] ">
@@ -31,7 +31,7 @@ export const LandingPageContent = async ({
           ))}
         </div>
         {products?.products?.length ? (
-          <div className="flex justify-center">
+          <div className="flex my-[3vw] justify-center">
             <Pagination query={query} totalProducts={products?.count || 0} />
           </div>
         ) : (

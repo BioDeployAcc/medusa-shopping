@@ -12,29 +12,29 @@ import React from "react";
 export const Footer = () => {
   const { screenSize, isMobile } = useGetScreenSize();
   return (
-    <footer className="bg-gray-900 text-white py-8">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
-        <div className="flex items-center mb-4 md:mb-0">
+    <footer className="bg-gray-900 text-white py-[3vw] md:py-[2vw]">
+      <div className="px-[10vw] md:px-[5vw] flex  md:flex-row items-center justify-between">
+        <div className="flex items-center mb-[1vw] md:mb-0">
           <Image
             alt="Logo"
             src={logo}
             width={
               isMobile
-                ? calculateMobilePercentage(64) * screenSize
+                ? calculateMobilePercentage(32) * screenSize
                 : calculateDesktopPercentage(64) * screenSize
             }
             height={
               isMobile
-                ? calculateMobilePercentage(64) * screenSize
+                ? calculateMobilePercentage(32) * screenSize
                 : calculateDesktopPercentage(64) * screenSize
             }
           />
-          <span className="font-bold text-lg">Your Store</span>
+          <span className="font-bold text-[4vw] md:text-[2vw]">Your Store</span>
         </div>
-        <div className="text-sm">
-          <p className="mb-2">123 Main Street</p>
-          <p className="mb-2">City, State ZIP</p>
-          <p className="mb-2">Phone: (123) 456-7890</p>
+        <div className="text-[2vw] md:text-[1vw] flex flex-col gap-y-[1.5vw] md:gap-y-[0.75vw]">
+          <p>123 Main Street</p>
+          <p>City, State ZIP</p>
+          <p>Phone: (123) 456-7890</p>
           <p>Email: info@example.com</p>
         </div>
       </div>
