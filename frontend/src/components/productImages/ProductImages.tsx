@@ -19,7 +19,7 @@ export const ProductImages: React.FC<ProductImagesProps> = ({ images }) => {
   const { isMobile, screenSize } = useGetScreenSize();
 
   return (
-    <div className="flex flex-col md:flex-row-reverse md:gap-x-[2vw] items-center">
+    <div className="flex flex-col gap-y-[2vw] md:flex-row-reverse md:gap-x-[2vw] items-center">
       <div className="w-full">
         <Image
           src={main}

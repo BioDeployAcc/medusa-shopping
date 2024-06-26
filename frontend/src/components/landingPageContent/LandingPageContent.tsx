@@ -14,10 +14,10 @@ export const LandingPageContent = async ({
   const products = await getProducts(query || {});
 
   return (
-    <div className="container w-screen flex flex-col md:flex-row ">
+    <div className="w-[100vw] flex flex-col md:flex-row items-center gap-y-[5vw] justify-center md:items-start md:justify-between">
       <Filter defaultValues={query} />
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-wrap justify-center gap-6">
+      <div className="flex flex-col w-full md:min-w-[66vw] justify-center">
+        <div className="flex flex-wrap justify-center w-full gap-[4vw] md:gap-[2vw] ">
           {products?.products?.map((product) => (
             <ProductCard
               key={product.id}
@@ -30,9 +30,15 @@ export const LandingPageContent = async ({
             />
           ))}
         </div>
-        <div className="flex justify-center">
-          <Pagination query={query} totalProducts={products?.count || 0} />
-        </div>
+        {products?.products?.length ? (
+          <div className="flex justify-center">
+            <Pagination query={query} totalProducts={products?.count || 0} />
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <h1 className="text-2xl text-gray-700">No products found</h1>
+          </div>
+        )}
       </div>
     </div>
   );

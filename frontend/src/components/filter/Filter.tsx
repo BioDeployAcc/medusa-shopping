@@ -1,8 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import Input from "../input";
 import SelectInput from "../selectInput";
 import {
@@ -10,9 +8,9 @@ import {
   useProductCategories,
   useProducts,
 } from "medusa-react";
-import { StoreGetProductsParams } from "@medusajs/medusa";
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
+import Button from "../button ";
 
 export type ProductQueryType = {
   q?: string;
@@ -51,9 +49,9 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
   const { collections } = useCollections();
 
   return (
-    <div className="container box-border">
+    <div className="container box-border w-full md:w-[25vw]">
       <form
-        className="box-border mx-10 md:mx-0 md:ml-7 p-5 bg-slate-100 h-auto rounded-lg flex flex-col gap-y-3"
+        className="box-border  w-full md:mx-0 md:ml-[2vw] p-[2vw] md:p-[1vw] bg-slate-100 h-auto rounded-lg flex flex-col gap-y-[2vw] md:gap-y-[1vw]"
         onSubmit={form.handleSubmit(onQuery)}
       >
         <Input form={form} label="Search" attribute="q" />
@@ -66,7 +64,10 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
               label: "All",
               value: "",
             },
-            ...(product_categories?.map((c) => ({
+            ...((
+              product_categories?.filter((c) => !c.handle.includes("hidden")) ||
+              []
+            ).map((c) => ({
               label: c.name,
               value: c.id,
             })) || []),
@@ -123,12 +124,7 @@ export const Filter = ({ defaultValues = defaultQuery }) => {
             { label: "48", value: "48" },
           ]}
         />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Search
-        </button>
+        <Button>Filter</Button>
       </form>
     </div>
   );

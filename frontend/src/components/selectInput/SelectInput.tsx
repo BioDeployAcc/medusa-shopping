@@ -27,14 +27,14 @@ export const SelectInput = <RegisterValues extends FieldValues>({
   return (
     <div className="relative">
       <label
-        className="block text-sm font-medium text-gray-700"
+        className="block text-[2vw] mb-[1vw] md:mb-[0.5vw] md:text-[1vw] font-medium text-gray-700"
         htmlFor={attribute}
       >
         {label}
       </label>
       <select
         {...form.register(attribute)}
-        className="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        className="block w-full px-[1.5vw] md:px-[1vw] py-[0.75vw] md:py-[0.5vw] text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500  text-[2vw] md:text-[1vw]"
       >
         {placeholder && (
           <option value="" disabled>

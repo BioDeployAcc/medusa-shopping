@@ -1,13 +1,12 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ProductOption, ProductOptionValue } from "@medusajs/medusa";
 import { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { z } from "zod";
 
 import SelectInput from "../selectInput";
 import Input from "../input";
+import Button from "../button ";
 
 export interface ProductOptionsFormProps {
   options: ProductOption[];
@@ -67,12 +66,7 @@ export const ProductOptionsForm = ({
           );
         })}
         <Input form={form} label="Quantity" attribute="quantity" isNumeric />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white p-[2vw] md:p-[1vw] rounded-[0.4vw]"
-        >
-          Add to cart
-        </button>
+        <Button>Add to cart</Button>
       </form>
     </div>
   );
