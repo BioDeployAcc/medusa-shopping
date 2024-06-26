@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "seed": "cd ../medusa-store && yarn seed",
     "build": "next build",
     "setup": "cd ../medusa-store && yarn && cd ../frontend && yarn",
     "build:parallel": "cd ../medusa-store && yarn build && cd ../frontend && yarn build",
