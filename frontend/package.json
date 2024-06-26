@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "setup": "cd ../medusa-store && yarn && cd ../frontend && yarn",
     "build:parallel": "cd ../medusa-store && yarn build && cd ../frontend && yarn build",
     "dev:parallel": "cd ../medusa-store && yarn dev & cd ../frontend && yarn dev",
     "start": "next start",

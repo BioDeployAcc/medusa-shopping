@@ -1,8 +1,8 @@
 import React from "react";
-import { 
+import {
   useAdminProduct,
   useAdminCreateDraftOrder,
-  useMedusa
+  useMedusa,
 } from "medusa-react";
 import { StepContentProps } from "../../../../widgets/onboarding-flow/onboarding-flow";
 import { Button, Text } from "@medusajs/ui";
@@ -20,8 +20,8 @@ const OrdersListDefault = ({ onNext, isComplete, data }: StepContentProps) => {
     try {
       // check if there is a shipping option and a region
       // and if not, create demo ones
-      const regions = await prepareRegions(client)
-      const shipping_options = await prepareShippingOptions(client, regions[0])
+      const regions = await prepareRegions(client);
+      const shipping_options = await prepareShippingOptions(client, regions[0]);
 
       const { draft_order } = await createDraftOrder({
         email: "customer@medusajs.com",
@@ -56,10 +56,13 @@ const OrdersListDefault = ({ onNext, isComplete, data }: StepContentProps) => {
     <>
       <div className="mb-6">
         <Text className="mb-2">
-          The last step is to create a sample order using the product you just created. You can then view your order’s details, process its payment, fulfillment, inventory, and more.
+          The last step is to create a sample order using the product you just
+          created. You can then view your order’s details, process its payment,
+          fulfillment, inventory, and more.
         </Text>
         <Text>
-          By clicking the “Create a Sample Order” button, we’ll generate an order using the product you created and default configurations.
+          By clicking the “Create a Sample Order” button, we’ll generate an
+          order using the product you created and default configurations.
         </Text>
       </div>
       <div className="flex gap-2">
